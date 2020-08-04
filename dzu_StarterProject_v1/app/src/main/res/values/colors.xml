@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Màu cho actionbar -->
+    <color name="colorPrimary">#3F51B5</color>
+    <!-- Màu cho status bar -->
+    <color name="colorPrimaryDark">#303F9F</color>
+    <!-- Màu sử dụng cho text default của button, cursor, ... -->
+    <color name="colorAccent">#FF4081</color>
+</resources>
