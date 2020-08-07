@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">testUI</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="first_layout">first Layout</string>
+    <string name="second_layout">second Layout</string>
+    <string name="third_layout">third layout</string>
+</resources>
