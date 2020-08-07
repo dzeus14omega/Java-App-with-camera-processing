@@ -2,9 +2,11 @@ package com.example.ui_template;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -25,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     ArrayList<Employee> list;
     AdapterEmployee adapterEmployee;
-
+    Button btnAdd;
 
 
     // Used to load the 'native-lib' library on application startup.
@@ -51,6 +53,15 @@ public class MainActivity extends AppCompatActivity {
         list = new ArrayList<>();
         adapterEmployee = new AdapterEmployee(this, list);
         listView.setAdapter(adapterEmployee);
+        btnAdd = (Button) findViewById(R.id.btnAdd);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void readData(){

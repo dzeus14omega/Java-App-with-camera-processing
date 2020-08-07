@@ -17,8 +17,8 @@
 
         <ImageView
             android:id="@+id/img_avatar"
-            android:layout_width="24dp"
-            android:layout_height="58dp"
+            android:layout_width="45dp"
+            android:layout_height="67dp"
             android:layout_weight="1"
             android:contentDescription="TODO"
             app:srcCompat="@drawable/ic_launcher_background" />
