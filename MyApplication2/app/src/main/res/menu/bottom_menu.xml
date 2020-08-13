@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homebase"
+        android:title="@string/home"
+        android:icon="@drawable/ic_home"/>
+    <item
+        android:id="@+id/basicfeature"
+        android:title="@string/people"
+        android:icon="@drawable/ic_people"/>
+    <item
+        android:id="@+id/setting"
+        android:title="@string/settings"
+        android:icon="@drawable/ic_setting"/>
+</menu>
