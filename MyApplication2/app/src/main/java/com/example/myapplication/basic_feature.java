@@ -80,11 +80,9 @@ public class basic_feature extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_basic_feature, container, false);
-        ListView myList = view.findViewById(R.id.listView);
 
         addControls(view);
         readData();
-
         return view;
     }
     private void addControls(View view){

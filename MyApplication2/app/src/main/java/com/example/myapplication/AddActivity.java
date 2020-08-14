@@ -120,7 +120,7 @@ public class AddActivity extends AppCompatActivity {
         contentValues.put("SDT", sdt);
         contentValues.put("Anh", anh);
 
-        SQLiteDatabase database = Database.initDatabase(this, "EmployeeDB.sqlite");
+        SQLiteDatabase database = Database.initDatabase(this, DATABASE_NAME);
         database.insert("NhanVien",null, contentValues);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -153,6 +153,10 @@ public class AddActivity extends AppCompatActivity {
                     Uri imageUri = data.getData();
                     InputStream is = getContentResolver().openInputStream(imageUri);
                     Bitmap bitmap = BitmapFactory.decodeStream(is);
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream );
+                    byte[] byteArray = stream.toByteArray();
+                    bitmap = BitmapFactory.decodeByteArray(byteArray,0, byteArray.length);
                     imgAva.setImageBitmap(bitmap);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
