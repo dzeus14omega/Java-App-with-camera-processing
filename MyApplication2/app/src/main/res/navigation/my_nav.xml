@@ -19,14 +19,21 @@
         android:label="fragment_basic_feature"
         tools:layout="@layout/fragment_basic_feature" >
         <action
-            android:id="@+id/action_basicfeature_to_setting"
-            app:destination="@id/setting"
-            app:launchSingleTop="false"
-            app:popUpToInclusive="false" />
+            android:id="@+id/action_basicfeature_to_checkIn"
+            app:destination="@id/btn_checkin" />
     </fragment>
     <fragment
         android:id="@+id/setting"
         android:name="com.example.myapplication.setting"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/checkin"
+        android:name="com.example.myapplication.checkIn"
+        android:label="fragment_check_in"
+        tools:layout="@layout/fragment_check_in" >
+        <action
+            android:id="@+id/action_checkIn_to_setting"
+            app:destination="@id/setting" />
+    </fragment>
 </navigation>

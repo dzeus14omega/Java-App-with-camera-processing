@@ -105,20 +105,26 @@ public class AddActivity extends AppCompatActivity {
         String ten = editName.getText().toString();
         String sdt = editPhoneNum.getText().toString();
         byte[] anh = getByteArrayFromImageView(imgAva);
-         if (ten.length() == 0){
-             Toast.makeText(this, "Your name is null", Toast.LENGTH_SHORT).show();
-             return;
-         }
-         if (sdt.length() == 0){
-             Toast.makeText(this, "Your phone is null", Toast.LENGTH_SHORT).show();
-             return;
-         }
+        String pass = "1";
+        int role = 1;
+
+        if (ten.length() == 0){
+            Toast.makeText(this, "Your name is null", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (sdt.length() == 0){
+            Toast.makeText(this, "Your phone is null", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
 
 
         ContentValues contentValues = new ContentValues();
         contentValues.put("Ten", ten);
         contentValues.put("SDT", sdt);
         contentValues.put("Anh", anh);
+        contentValues.put("Pass", pass);
+        contentValues.put("Role", role);
 
         SQLiteDatabase database = Database.initDatabase(this, DATABASE_NAME);
         database.insert("NhanVien",null, contentValues);

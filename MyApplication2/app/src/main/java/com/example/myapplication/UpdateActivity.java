@@ -58,7 +58,7 @@ public class UpdateActivity extends AppCompatActivity {
         Intent intent = getIntent();
         id = intent.getIntExtra("ID", -1);
         SQLiteDatabase database = Database.initDatabase(this, DATABASE_NAME);
-        Cursor cursor = database.rawQuery("SELECT * FROM NhanVien WHERE id = ?", new String[]{id + "",});
+        Cursor cursor = database.rawQuery("SELECT ID, Ten, SDT, Anh FROM NhanVien WHERE id = ?", new String[]{id + "",});
         cursor.moveToFirst();
         String name = cursor.getString(1);
         String phone_num = cursor.getString(2);

@@ -9,6 +9,10 @@
         android:title="@string/people"
         android:icon="@drawable/ic_people"/>
     <item
+        android:id="@+id/checkin"
+        android:icon="@drawable/ic_baseline_check_24"
+        android:title="Check-in" />
+    <item
         android:id="@+id/setting"
         android:title="@string/settings"
         android:icon="@drawable/ic_setting"/>

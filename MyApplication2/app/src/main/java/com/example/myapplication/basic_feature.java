@@ -7,11 +7,14 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -83,6 +86,7 @@ public class basic_feature extends Fragment {
 
         addControls(view);
         readData();
+
         return view;
     }
     private void addControls(View view){
@@ -96,9 +100,16 @@ public class basic_feature extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), AddActivity.class);
                 startActivity(intent);
+                //Log.d("my tag", "click");
             }
         });
 
+        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("my tag", "click");
+            }
+        });*/
     }
     private void readData(){
         database = Database.initDatabase(getActivity(), DATABASE_NAME);
