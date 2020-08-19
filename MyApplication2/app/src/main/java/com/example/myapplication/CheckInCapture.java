@@ -2,6 +2,9 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
@@ -18,8 +21,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import entity_class.CameraCustom;
+import entity_class.Database;
 
 public class CheckInCapture extends AppCompatActivity {
+    final String DATABASE_NAME = "EmployeeDB.sqlite";
     Camera camera;
     FrameLayout frameLayout;
     CameraCustom cameraCustom;
@@ -29,6 +34,7 @@ public class CheckInCapture extends AppCompatActivity {
             String fileName = System.currentTimeMillis() + ".jpg";
 
             try {
+                // try to store image in internal storage
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                 ByteArrayOutputStream blob = new ByteArrayOutputStream();
 
@@ -37,6 +43,10 @@ public class CheckInCapture extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "image saved", Toast.LENGTH_SHORT).show();
                 out.flush();
                 out.close();
+                // store image path to sqlite-database if image file store successful
+                insert(fileName);
+
+
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -64,31 +74,18 @@ public class CheckInCapture extends AppCompatActivity {
         }
     };
 
-/*    private File getOutputMediaFile() {
-        String state = Environment.getExternalStorageState();
-        if (!state.equals(Environment.MEDIA_MOUNTED)){
-            return null;
-        } else {
-            File folder_gui = new File(Environment.getExternalStorageDirectory() + File.separator + "GUI");
-            if(!folder_gui.exists()){
-                folder_gui.mkdir();
-
-            }
-            File outputfile = new File(folder_gui, "temp.jpg");
-            return outputfile;
-        }
-
-    }*/
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in_capture);
+
         frameLayout = (FrameLayout) findViewById(R.id.frame_capture);
         camera = Camera.open();
         cameraCustom = new CameraCustom(this, camera);
         frameLayout.addView(cameraCustom);
+
+
     }
 
 
@@ -98,4 +95,15 @@ public class CheckInCapture extends AppCompatActivity {
             camera.takePicture(null,null, mPictureCallback);
         }
     }
+
+    private void insert(String filename){
+        SQLiteDatabase database = Database.initDatabase(this, DATABASE_NAME);
+        String insertQuerry = "INSERT INTO DiemDanh (id_employee, time, image_link) VALUES ("+ MyApp.user.getId()+", datetime('now', 'localtime'), '"+ filename +"') ";
+        database.execSQL(insertQuerry);
+        Toast.makeText(this,insertQuerry,Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+
 }

@@ -82,6 +82,7 @@ public class basic_feature extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        MyApp.stateFragment =2;
         View view = inflater.inflate(R.layout.fragment_basic_feature, container, false);
 
         addControls(view);

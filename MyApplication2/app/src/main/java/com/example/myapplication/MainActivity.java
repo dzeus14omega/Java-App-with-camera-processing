@@ -8,8 +8,10 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -32,6 +34,23 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this,  R.id.fragment);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
+        /*switch (MyApp.stateFragment){
+            case 1:
+                Intent i = new Intent(this,homebase.class);
+                startActivity(i);
+            case 2:
+                i = new Intent(this,basic_feature.class);
+                startActivity(i);
+            case 3:
+                i = new Intent(this, checkIn.class);
+                startActivity(i);
+            case 4:
+                i = new Intent(this, setting.class);
+                startActivity(i);
+            default:
+                i = new Intent(this,homebase.class);
+                startActivity(i);
+        }*/
 
     }
 

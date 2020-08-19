@@ -62,6 +62,7 @@ public class CameraCustom extends SurfaceView implements SurfaceHolder.Callback 
 
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
-
+        camera.stopPreview();
+        camera.release();
     }
 }

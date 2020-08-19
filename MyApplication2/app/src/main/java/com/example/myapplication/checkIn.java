@@ -6,6 +6,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.core.app.ActivityCompat;
@@ -17,10 +19,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 import entity_class.AdapterEmployee;
+import entity_class.Database;
+import entity_class.Employee;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +36,10 @@ import entity_class.AdapterEmployee;
  */
 public class checkIn extends Fragment {
     Button btn_checkIn;
+    TextView message;
+    final String DATABASE_NAME = "EmployeeDB.sqlite";
+    SQLiteDatabase database;
+
     private int CAMERA_PERMISSION_CODE = 1;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -76,7 +87,10 @@ public class checkIn extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        MyApp.stateFragment = 3;
         View view = inflater.inflate(R.layout.fragment_check_in, container, false);
+
+
         addControls(view);
         
 
@@ -85,6 +99,10 @@ public class checkIn extends Fragment {
 
 
     private void addControls(View view) {
+        message = view.findViewById(R.id.message);
+
+
+
         btn_checkIn = view.findViewById(R.id.btn_checkin);
         btn_checkIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +121,24 @@ public class checkIn extends Fragment {
         
 
     }
+
+    private void readData(){
+        /*database = Database.initDatabase(getActivity(), DATABASE_NAME);
+        Cursor cursor = database.rawQuery("SELECT * FROM NhanVien", null);
+        list.clear();
+        for (int i=0; i < cursor.getCount(); i++){
+            cursor.moveToPosition(i);
+            int id = cursor.getInt(0);
+            String name = cursor.getString(1);
+            String phone_num = cursor.getString(2);
+            byte[] img_Ava = cursor.getBlob(3);
+            list.add(new Employee(id, name, phone_num, img_Ava));
+        }
+
+        // render screen again while finish read data
+        adapterEmployee.notifyDataSetChanged();*/
+    }
+
 
     private void requestCameraPermission() {
         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);

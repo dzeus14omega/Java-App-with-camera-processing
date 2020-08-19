@@ -5,6 +5,8 @@ public class Employee {
     private String name;
     private String phone_num;
     private byte[] avatar;
+    private int role;
+
 
     public Employee(int id, String name, String phone_num, byte[] image){
         this.id = id;
@@ -13,9 +15,8 @@ public class Employee {
         this.avatar = image;
     }
 
-
-
-
+    public Employee() {
+    }
 
 
     // GET/SET method
@@ -49,5 +50,13 @@ public class Employee {
 
     public void setPhone_num(String phone_num) {
         this.phone_num = phone_num;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 }
