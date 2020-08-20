@@ -77,7 +77,7 @@ public class CheckInCapture extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(null);
         setContentView(R.layout.activity_check_in_capture);
 
         frameLayout = (FrameLayout) findViewById(R.id.frame_capture);
@@ -101,7 +101,9 @@ public class CheckInCapture extends AppCompatActivity {
         String insertQuerry = "INSERT INTO DiemDanh (id_employee, time, image_link) VALUES ("+ MyApp.user.getId()+", datetime('now', 'localtime'), '"+ filename +"') ";
         database.execSQL(insertQuerry);
         Toast.makeText(this,insertQuerry,Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, Popup_ComfirmCheckIn.class);
+        this.finish();
+        //intent.putExtra("datetime", )
         startActivity(intent);
     }
 

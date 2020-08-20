@@ -19,8 +19,8 @@
         android:label="fragment_basic_feature"
         tools:layout="@layout/fragment_basic_feature" >
         <action
-            android:id="@+id/action_basicfeature_to_checkIn"
-            app:destination="@id/btn_checkin" />
+            android:id="@+id/action_basicfeature_to_checkin"
+            app:destination="@id/checkin" />
     </fragment>
     <fragment
         android:id="@+id/setting"
@@ -29,6 +29,7 @@
         tools:layout="@layout/fragment_setting" />
     <fragment
         android:id="@+id/checkin"
+        android:tag="@string/checkin"
         android:name="com.example.myapplication.checkIn"
         android:label="fragment_check_in"
         tools:layout="@layout/fragment_check_in" >

@@ -1,22 +1,17 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
-import androidx.navigation.NavGraph;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-
+    FragmentManager fragmentManager;
     // Used to load the 'native-lib' library on application startup.
     static {
         System.loadLibrary("native-lib");
@@ -26,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        fragmentManager = getSupportFragmentManager();
         // Example of a call to a native method
         //TextView tv = findViewById(R.id.sample_text);
         //tv.setText(stringFromJNI());
@@ -34,22 +29,23 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this,  R.id.fragment);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
-        /*switch (MyApp.stateFragment){
+
+        /*Fragment frg = null;
+        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        switch (MyApp.stateFragment){
             case 1:
-                Intent i = new Intent(this,homebase.class);
-                startActivity(i);
+                frg = getSupportFragmentManager().findFragmentById(R.id.basicfeature);
+                ft.commit();
             case 2:
-                i = new Intent(this,basic_feature.class);
-                startActivity(i);
+                frg = getSupportFragmentManager().findFragmentById(R.id.basicfeature);
+
+                ft.commit();
             case 3:
-                i = new Intent(this, checkIn.class);
-                startActivity(i);
+
             case 4:
-                i = new Intent(this, setting.class);
-                startActivity(i);
+
             default:
-                i = new Intent(this,homebase.class);
-                startActivity(i);
+
         }*/
 
     }
@@ -60,3 +56,14 @@ public class MainActivity extends AppCompatActivity {
      */
     public native String stringFromJNI();
 }
+
+    /*@Override
+    public void onResume() {
+        super.onResume();
+        Fragment frg = null;
+        frg = getActivity().getSupportFragmentManager().findFragmentById(R.id.checkin);
+        final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.detach(frg);
+        ft.attach(frg);
+        ft.commit();
+    }*/

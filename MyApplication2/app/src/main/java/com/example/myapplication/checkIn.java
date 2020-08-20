@@ -1,9 +1,6 @@
 package com.example.myapplication;
 
 import android.Manifest;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -13,21 +10,16 @@ import android.os.Bundle;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-
-import entity_class.AdapterEmployee;
+import entity_class.AttendanceInfo;
 import entity_class.Database;
-import entity_class.Employee;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,7 +31,7 @@ public class checkIn extends Fragment {
     TextView message;
     final String DATABASE_NAME = "EmployeeDB.sqlite";
     SQLiteDatabase database;
-
+    ArrayList<AttendanceInfo> list;
     private int CAMERA_PERMISSION_CODE = 1;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -92,17 +84,16 @@ public class checkIn extends Fragment {
 
 
         addControls(view);
-        
+        readData();
 
         return view;
     }
 
 
+
     private void addControls(View view) {
         message = view.findViewById(R.id.message);
-
-
-
+        list = new ArrayList<>();
         btn_checkIn = view.findViewById(R.id.btn_checkin);
         btn_checkIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,35 +105,46 @@ public class checkIn extends Fragment {
                 } else {
                     requestCameraPermission();
                 }
-
-
             }
         });
-        
-
     }
 
     private void readData(){
-        /*database = Database.initDatabase(getActivity(), DATABASE_NAME);
-        Cursor cursor = database.rawQuery("SELECT * FROM NhanVien", null);
+        database = Database.initDatabase(getActivity(), DATABASE_NAME);
+        Cursor cursor = database.rawQuery("SELECT * FROM DiemDanh WHERE id_employee = " + MyApp.user.getId()+ " limit 20", null);
         list.clear();
         for (int i=0; i < cursor.getCount(); i++){
             cursor.moveToPosition(i);
             int id = cursor.getInt(0);
-            String name = cursor.getString(1);
-            String phone_num = cursor.getString(2);
-            byte[] img_Ava = cursor.getBlob(3);
-            list.add(new Employee(id, name, phone_num, img_Ava));
+            int id_employee = cursor.getInt(1);
+            String datetime = cursor.getString(2);
+            String linkImage = cursor.getString(3);
+            String linkVideo = cursor.getString(4);
+            list.add(new AttendanceInfo(id_employee, datetime, linkImage, linkVideo));
         }
 
         // render screen again while finish read data
-        adapterEmployee.notifyDataSetChanged();*/
+        //adapterEmployee.notifyDataSetChanged();
+        if (list.isEmpty()){
+            message.setText("Ban chua diem danh hom nay");
+        } else {
+            AttendanceInfo attendanceInfo = list.get(list.size()-1);
+            message.setText(attendanceInfo.getDatetime());
+        }
     }
 
 
     private void requestCameraPermission() {
         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
-        /*if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA)){
+
+    }
+}
+
+
+
+
+//in requestCameraPermission()
+/*if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA)){
             new AlertDialog.Builder(getActivity()).setTitle("Yeu cau cap quyen").setMessage("This permission is needed because of using camera").setPositiveButton("ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -157,5 +159,3 @@ public class checkIn extends Fragment {
         } else {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
         }*/
-    }
-}
