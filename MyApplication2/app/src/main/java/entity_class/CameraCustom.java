@@ -11,10 +11,10 @@ import androidx.annotation.NonNull;
 import java.io.IOException;
 import java.util.List;
 
+
 public class CameraCustom extends SurfaceView implements SurfaceHolder.Callback {
     Camera camera;
     SurfaceHolder holder;
-
 
     public CameraCustom(Context context, Camera camera) {
         super(context);
@@ -25,6 +25,7 @@ public class CameraCustom extends SurfaceView implements SurfaceHolder.Callback 
 
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
+
         Camera.Parameters params = camera.getParameters();
 
         //change orientation of camera
@@ -47,6 +48,7 @@ public class CameraCustom extends SurfaceView implements SurfaceHolder.Callback 
 
         params.setPictureSize(mSize.width, mSize.height);
         camera.setParameters(params);
+
         try {
             camera.setPreviewDisplay(holder);
             camera.startPreview();
@@ -65,4 +67,6 @@ public class CameraCustom extends SurfaceView implements SurfaceHolder.Callback 
         camera.stopPreview();
         camera.release();
     }
+
+
 }

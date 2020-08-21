@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 
+import java.io.File;
+
 import entity_class.Employee;
 
 public class MyApp extends Application {
@@ -12,6 +14,7 @@ public class MyApp extends Application {
     public static Context context;
 
     public static int stateFragment = 1;
+    public static String pathFile;
 
     @Override
     public void onCreate() {
@@ -19,6 +22,7 @@ public class MyApp extends Application {
         user = new Employee();
         user.setId(1);
         user.setRole(3);
+        pathFile = getFilesDir() + "/";
         /*context = getApplicationContext();
         Intent intent = new Intent(context, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

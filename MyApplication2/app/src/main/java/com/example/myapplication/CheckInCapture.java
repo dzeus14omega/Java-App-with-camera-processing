@@ -2,32 +2,38 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.os.Bundle;
-import android.os.Environment;
+
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 import entity_class.CameraCustom;
 import entity_class.Database;
+import entity_class.RecordingCustom;
 
 public class CheckInCapture extends AppCompatActivity {
     final String DATABASE_NAME = "EmployeeDB.sqlite";
     Camera camera;
     FrameLayout frameLayout;
     CameraCustom cameraCustom;
+    RecordingCustom recordingCustom;
+    ImageButton btn_record;
+    ImageButton btn_capture;
+    Context context;
+
     Camera.PictureCallback mPictureCallback = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] bytes, Camera camera) {
@@ -53,24 +59,6 @@ public class CheckInCapture extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            //File imageCapture = getOutputMediaFile();
-
-            /*if (imageCapture == null){
-                return;
-            }else {
-                try {
-                    FileOutputStream fos = new FileOutputStream(imageCapture);
-                    fos.flush();
-                    fos.close();
-
-                    camera.startPreview();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }*/
         }
     };
 
@@ -79,18 +67,40 @@ public class CheckInCapture extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(null);
         setContentView(R.layout.activity_check_in_capture);
-
+        context = this;
         frameLayout = (FrameLayout) findViewById(R.id.frame_capture);
         camera = Camera.open();
         cameraCustom = new CameraCustom(this, camera);
+
+
         frameLayout.addView(cameraCustom);
+
+        btn_capture = (ImageButton) findViewById(R.id.imageButton);
+        btn_capture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                captureImage();
+            }
+        });
+
+        btn_record = (ImageButton) findViewById(R.id.record_video);
+        /*btn_record.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                frameLayout.removeAllViews();
+
+
+                recordingCustom = new RecordingCustom(context,camera);
+                frameLayout.addView(recordingCustom);
+            }
+        });*/
 
 
     }
 
 
 
-    public void captureImage(View view){
+    public void captureImage(){
         if (camera != null){
             camera.takePicture(null,null, mPictureCallback);
         }
