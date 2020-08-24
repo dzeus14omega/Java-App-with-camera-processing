@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -31,7 +32,7 @@ public class basic_feature extends Fragment {
     final String DATABASE_NAME = "EmployeeDB.sqlite";
     SQLiteDatabase database;
 
-    ListView listView;
+    GridView listView;
     ArrayList<Employee> list;
     AdapterEmployee adapterEmployee;
     Button btnAdd;
@@ -91,7 +92,7 @@ public class basic_feature extends Fragment {
         return view;
     }
     private void addControls(View view){
-        listView = (ListView) view.findViewById(R.id.listView);
+        listView = (GridView) view.findViewById(R.id.listView);
         list = new ArrayList<>();
         adapterEmployee = new AdapterEmployee(getActivity(), list);
         listView.setAdapter(adapterEmployee);
