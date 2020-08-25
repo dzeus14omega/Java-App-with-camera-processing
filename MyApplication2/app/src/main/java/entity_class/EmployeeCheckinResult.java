@@ -2,7 +2,9 @@ package entity_class;
 
 public class EmployeeCheckinResult {
     private int id;
-    private String datetime;
+
+
+    private String[] datetime;
     private String employee_name;
     private String[] videoLink;
     private String[] imageLink;
@@ -10,13 +12,22 @@ public class EmployeeCheckinResult {
 
     private byte[] avatar;
 
-    public EmployeeCheckinResult(int id, String datetime, String employee_name, String[] videoLink, String[] imageLink, byte[] avatar) {
+    public EmployeeCheckinResult(int id, String datetime[], String employee_name, String[] videoLink, String[] imageLink, byte[] avatar) {
         this.id = id;
         this.datetime = datetime;
         this.employee_name = employee_name;
         this.videoLink = videoLink;
         this.imageLink = imageLink;
         this.avatar = avatar;
+    }
+
+
+    public String[] getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String[] datetime) {
+        this.datetime = datetime;
     }
 
     public int getId() {
@@ -27,13 +38,6 @@ public class EmployeeCheckinResult {
         this.id = id;
     }
 
-    public String getDatetime() {
-        return datetime;
-    }
-
-    public void setDatetime(String datetime) {
-        this.datetime = datetime;
-    }
 
     public String getEmployee_name() {
         return employee_name;
