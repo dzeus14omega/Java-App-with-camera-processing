@@ -135,8 +135,7 @@ public class AddActivity extends AppCompatActivity {
     }
 
     private void cancel(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        finish();
     }
 
     private byte[] getByteArrayFromImageView(ImageView imgv){

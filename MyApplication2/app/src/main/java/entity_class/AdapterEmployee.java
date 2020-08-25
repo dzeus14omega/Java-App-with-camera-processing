@@ -106,7 +106,6 @@ public class AdapterEmployee extends BaseAdapter {
             }
         });
 
-
         return row;
     }
 

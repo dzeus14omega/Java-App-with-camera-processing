@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -35,7 +37,7 @@ public class basic_feature extends Fragment {
     GridView listView;
     ArrayList<Employee> list;
     AdapterEmployee adapterEmployee;
-    Button btnAdd;
+    ImageButton btnAdd;
 
 
 
@@ -96,7 +98,10 @@ public class basic_feature extends Fragment {
         list = new ArrayList<>();
         adapterEmployee = new AdapterEmployee(getActivity(), list);
         listView.setAdapter(adapterEmployee);
-        btnAdd = (Button) view.findViewById(R.id.btnAdd);
+
+
+
+        btnAdd = (ImageButton) view.findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,12 +111,6 @@ public class basic_feature extends Fragment {
             }
         });
 
-        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("my tag", "click");
-            }
-        });*/
     }
     private void readData(){
         database = Database.initDatabase(getActivity(), DATABASE_NAME);
@@ -128,6 +127,11 @@ public class basic_feature extends Fragment {
 
         // render screen again while finish read data
         adapterEmployee.notifyDataSetChanged();
+
+        /*for (int i=0; i < listView.getChildCount(); i++){
+            View view = (View) listView.getChildAt(i);
+            View.
+        }*/
     }
 
 
