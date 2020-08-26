@@ -32,7 +32,7 @@ public class AdapterCheckinResult extends RecyclerView.Adapter<AdapterCheckinRes
             super(itemView);
             avatar = (ImageView) itemView.findViewById(R.id.avatar);
             employeeName = (TextView) itemView.findViewById(R.id.employee_name);
-            datetime = (TextView) itemView.findViewById(R.id.datetime);
+            datetime = (TextView) itemView.findViewById(R.id.date);
 
             btn_details = (ImageButton) itemView.findViewById(R.id.btn_details);
 

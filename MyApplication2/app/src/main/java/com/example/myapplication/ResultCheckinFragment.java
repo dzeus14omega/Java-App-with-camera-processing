@@ -72,7 +72,7 @@ public class ResultCheckinFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         list = new ArrayList<>();
-        querryDB = "SELECT dd.id_employee, nv.Ten, dd.time, dd.video_link, dd.image_link, nv.Anh FROM NhanVien nv JOIN DiemDanh dd WHERE nv.ID = dd.id_employee";
+        querryDB = "SELECT dd.id_employee, nv.Ten, dd.time, dd.video_link, dd.image_link, nv.Anh FROM NhanVien nv JOIN DiemDanh dd ON nv.ID = dd.id_employee";
         adapterCheckinResult = new AdapterCheckinResult(getActivity(), list);
         recyclerView.setAdapter(adapterCheckinResult);
 
