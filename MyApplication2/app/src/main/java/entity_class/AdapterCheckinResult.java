@@ -1,37 +1,75 @@
 package entity_class;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.myapplication.R;
 import java.util.ArrayList;
 
 
-public class AdapterCheckinResult extends BaseAdapter {
+public class AdapterCheckinResult extends RecyclerView.Adapter<AdapterCheckinResult.ViewHolder> {
     ArrayList<EmployeeCheckinResult> list;
     Activity context;
 
-    public AdapterCheckinResult(ArrayList<EmployeeCheckinResult> list, Activity context) {
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        ImageView avatar;
+        TextView employeeName;
+        TextView datetime;
+        ImageButton btn_details;
+
+
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            avatar = (ImageView) itemView.findViewById(R.id.avatar);
+            employeeName = (TextView) itemView.findViewById(R.id.employee_name);
+            datetime = (TextView) itemView.findViewById(R.id.datetime);
+
+            btn_details = (ImageButton) itemView.findViewById(R.id.btn_details);
+
+        }
+    }
+
+
+    public AdapterCheckinResult(Activity context, ArrayList<EmployeeCheckinResult> list) {
         this.list = list;
         this.context = context;
     }
 
+
+    @NonNull
     @Override
-    public int getCount() {
-        return list.size();
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View row = inflater.inflate(R.layout.list_result_checkin, parent, false);
+        return new ViewHolder(row);
     }
 
     @Override
-    public Object getItem(int i) {
-        return null;
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        EmployeeCheckinResult employeeCheckinResult = list.get(position);
+        Bitmap bm_ava = BitmapFactory.decodeByteArray(employeeCheckinResult.getAvatar(), 0, employeeCheckinResult.getAvatar().length);
+
+        holder.avatar.setImageBitmap(bm_ava);
+        holder.employeeName.setText(list.get(position).getEmployee_name());
+        holder.datetime.setText(list.get(position).getDatetime());
+
+        holder.btn_details.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Activity view details ...
+
+            }
+        });
     }
 
     @Override
@@ -40,30 +78,8 @@ public class AdapterCheckinResult extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row = inflater.inflate(R.layout.list_result_checkin, null);
-
-        ImageView avatar = row.findViewById(R.id.avatar);
-        TextView txtName = (TextView) row.findViewById(R.id.employee_name);
-        TextView datetime = (TextView) row.findViewById(R.id.datetime);
-
-        ImageButton btn_details = (ImageButton) row.findViewById(R.id.btn_details);
-
-        EmployeeCheckinResult employeeCheckinResult = list.get(i);
-        txtName.setText(employeeCheckinResult.getEmployee_name() + " ");
-        datetime.setText(employeeCheckinResult.getDatetime() + " ");
-
-        Bitmap bm_ava = BitmapFactory.decodeByteArray(employeeCheckinResult.getAvatar(), 0, employeeCheckinResult.getAvatar().length);
-        avatar.setImageBitmap(bm_ava);
-
-        btn_details.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-        return row;
+    public int getItemCount() {
+        return list.size();
     }
+
 }

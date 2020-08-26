@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,11 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.myapplication.dummy.DummyContent;
 
 import java.util.ArrayList;
 
+import entity_class.AdapterCheckinResult;
+import entity_class.Database;
 import entity_class.EmployeeCheckinResult;
 
 /**
@@ -23,8 +28,11 @@ import entity_class.EmployeeCheckinResult;
  */
 public class ResultCheckinFragment extends Fragment {
     ArrayList<EmployeeCheckinResult> list;
+    final String DATABASE_NAME = "EmployeeDB.sqlite";
+    SQLiteDatabase database;
+    AdapterCheckinResult adapterCheckinResult;
 
-
+    String querryDB;
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -58,12 +66,21 @@ public class ResultCheckinFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_result_checkin_list, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_result_checkin_list, container, false);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        list = new ArrayList<>();
+        querryDB = "SELECT dd.id_employee, nv.Ten, dd.time, dd.video_link, dd.image_link, nv.Anh FROM NhanVien nv JOIN DiemDanh dd WHERE nv.ID = dd.id_employee";
+        adapterCheckinResult = new AdapterCheckinResult(getActivity(), list);
+        recyclerView.setAdapter(adapterCheckinResult);
+
+        readData();
+
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
+        /*if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
@@ -71,8 +88,26 @@ public class ResultCheckinFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS));
+            //recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS));
+        }*/
+        return recyclerView;
+    }
+
+    private void readData(){
+        database = Database.initDatabase(getActivity(), DATABASE_NAME);
+        Cursor cursor = database.rawQuery(querryDB, null);
+        list.clear();
+
+        for (int i=0 ;i< cursor.getCount();i++){
+            cursor.moveToPosition(i);
+            int id = cursor.getInt(0);
+            String name = cursor.getString(1);
+            String datetime = cursor.getString(2);
+            String videoLink = cursor.getString(3);
+            String imageLink = cursor.getString(4);
+            byte[] img_Ava = cursor.getBlob(5);
+            list.add(new EmployeeCheckinResult(id, datetime, name, videoLink, imageLink, img_Ava));
         }
-        return view;
+        adapterCheckinResult.notifyDataSetChanged();
     }
 }
