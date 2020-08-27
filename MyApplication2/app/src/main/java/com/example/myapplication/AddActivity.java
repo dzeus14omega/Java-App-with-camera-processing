@@ -117,8 +117,6 @@ public class AddActivity extends AppCompatActivity {
             return;
         }
 
-
-
         ContentValues contentValues = new ContentValues();
         contentValues.put("Ten", ten);
         contentValues.put("SDT", sdt);
@@ -130,7 +128,6 @@ public class AddActivity extends AppCompatActivity {
         database.insert("NhanVien",null, contentValues);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-
 
     }
 

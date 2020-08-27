@@ -9,11 +9,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -62,8 +64,8 @@ public class AdapterEmployee extends BaseAdapter {
         TextView txtId = (TextView) row.findViewById(R.id.id);
         TextView txtName = (TextView) row.findViewById(R.id.name);
         TextView txtPhone_num = (TextView) row.findViewById(R.id.phone_num);
-        Button btnDelete = (Button) row.findViewById(R.id.delete);
-        Button btnModify = (Button) row.findViewById(R.id.modify);
+        ImageButton btnDelete = (ImageButton) row.findViewById(R.id.delete);
+        ImageButton btnModify = (ImageButton) row.findViewById(R.id.modify);
 
         final Employee employee = list.get(i);
         txtId.setText(employee.getId() + " ");
@@ -98,7 +100,7 @@ public class AdapterEmployee extends BaseAdapter {
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        return;
                     }
                 });
                 AlertDialog dialog = builder.create();

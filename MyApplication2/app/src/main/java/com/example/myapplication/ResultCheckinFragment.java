@@ -1,22 +1,17 @@
 package com.example.myapplication;
 
-import android.content.Context;
+
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-
-import com.example.myapplication.dummy.DummyContent;
-
 import java.util.ArrayList;
 
 import entity_class.AdapterCheckinResult;
@@ -72,24 +67,11 @@ public class ResultCheckinFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         list = new ArrayList<>();
-        querryDB = "SELECT dd.id_employee, nv.Ten, dd.time, dd.video_link, dd.image_link, nv.Anh FROM NhanVien nv JOIN DiemDanh dd ON nv.ID = dd.id_employee";
+        querryDB = "SELECT dd.id_employee, nv.Ten, dd.time, dd.video_link, dd.image_link, nv.Anh FROM DiemDanh dd LEFT join NhanVien nv ON nv.ID = dd.id_employee GROUP by dd.id_employee Order by dd.time";
         adapterCheckinResult = new AdapterCheckinResult(getActivity(), list);
         recyclerView.setAdapter(adapterCheckinResult);
-
         readData();
 
-
-        // Set the adapter
-        /*if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            //recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS));
-        }*/
         return recyclerView;
     }
 
@@ -108,6 +90,7 @@ public class ResultCheckinFragment extends Fragment {
             byte[] img_Ava = cursor.getBlob(5);
             list.add(new EmployeeCheckinResult(id, datetime, name, videoLink, imageLink, img_Ava));
         }
+        //Toast.makeText(getContext(), list.size() + " ", Toast.LENGTH_SHORT).show();
         adapterCheckinResult.notifyDataSetChanged();
     }
 }

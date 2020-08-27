@@ -1,6 +1,7 @@
 package entity_class;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -12,7 +13,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.CheckInDetails;
 import com.example.myapplication.R;
+import com.example.myapplication.UpdateActivity;
+
 import java.util.ArrayList;
 
 
@@ -56,7 +60,7 @@ public class AdapterCheckinResult extends RecyclerView.Adapter<AdapterCheckinRes
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        EmployeeCheckinResult employeeCheckinResult = list.get(position);
+        final EmployeeCheckinResult employeeCheckinResult = list.get(position);
         Bitmap bm_ava = BitmapFactory.decodeByteArray(employeeCheckinResult.getAvatar(), 0, employeeCheckinResult.getAvatar().length);
 
         holder.avatar.setImageBitmap(bm_ava);
@@ -67,7 +71,10 @@ public class AdapterCheckinResult extends RecyclerView.Adapter<AdapterCheckinRes
             @Override
             public void onClick(View view) {
                 //Activity view details ...
-
+                Intent intent = new Intent(context, CheckInDetails.class);
+                intent.putExtra("ID", employeeCheckinResult.getId());
+                intent.putExtra("name", employeeCheckinResult.getEmployee_name());
+                context.startActivity(intent);
             }
         });
     }
