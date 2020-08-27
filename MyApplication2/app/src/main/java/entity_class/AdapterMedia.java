@@ -24,6 +24,11 @@ public class AdapterMedia extends BaseAdapter {
     Activity context;
     ArrayList<MediaDetails> list;
 
+    public AdapterMedia(Activity context, ArrayList<MediaDetails> list) {
+        this.context = context;
+        this.list = list;
+    }
+
     @Override
     public int getCount() {
         return list.size();
@@ -46,7 +51,7 @@ public class AdapterMedia extends BaseAdapter {
         ImageView imgCheckin = row.findViewById(R.id.image_checkin);
         TextView imageName = row.findViewById(R.id.image_name);
         TextView datetime = row.findViewById(R.id.datetime);
-        Button btnDelete = row.findViewById(R.id.datetime);
+        Button btnDelete = row.findViewById(R.id.btn_delete);
 
         MediaDetails mediaDetails = list.get(i);
         imageName.setText(mediaDetails.getImageLink());
