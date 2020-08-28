@@ -10,4 +10,4 @@
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
     tools:context=".ResultCheckinFragment"
-    tools:listitem="@layout/fragment_result_checkin" />
+    tools:listitem="@layout/list_result_checkin" />

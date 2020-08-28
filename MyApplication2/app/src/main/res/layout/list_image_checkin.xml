@@ -8,8 +8,9 @@
 
     <ImageView
         android:id="@+id/image_checkin"
-        android:layout_width="188dp"
-        android:layout_height="133dp"
+        android:layout_width="142dp"
+        android:layout_height="123dp"
+        android:rotation="90"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <LinearLayout
@@ -38,7 +39,8 @@
             android:id="@+id/btn_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Xoa" />
+            android:text="Xoa"
+            android:visibility="visible" />
 
     </LinearLayout>
 

@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,6 +13,7 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -27,7 +30,7 @@ public class CheckInDetails extends AppCompatActivity {
     TextView employeeName;
     int id = -1;
 
-    GridView listView;
+    RecyclerView recyclerView;
     ArrayList<MediaDetails> list;
     AdapterMedia adapterMedia;
 
@@ -35,7 +38,10 @@ public class CheckInDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in_details);
+        recyclerView = (RecyclerView) findViewById(R.id.list_image);
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
 
         Intent intent = getIntent();
         employeeName = (TextView) findViewById(R.id.employee_name);
@@ -52,10 +58,10 @@ public class CheckInDetails extends AppCompatActivity {
             }
         });
 
-        listView = (GridView) findViewById(R.id.listMediaImage);
+
         list = new ArrayList<>();
         adapterMedia = new AdapterMedia(this, list);
-        listView.setAdapter(adapterMedia);
+        recyclerView.setAdapter(adapterMedia);
 
         readData();
     }
@@ -64,6 +70,7 @@ public class CheckInDetails extends AppCompatActivity {
         database = Database.initDatabase(this, DATABASE_NAME);
         Cursor cursor = database.rawQuery("SELECT * FROM DiemDanh WHERE id_employee = ?", new String[]{id + "",});
         list.clear();
+        Toast.makeText(this, cursor.getCount()+ "", Toast.LENGTH_SHORT).show();
         for (int i=0;i< cursor.getCount();i++){
             cursor.moveToPosition(i);
             int id_attend = cursor.getInt(0);
@@ -74,7 +81,7 @@ public class CheckInDetails extends AppCompatActivity {
             if(videoLink != null){
 
             } else if(imageLink != null){
-                list.add(new MediaDetails(imageLink,videoLink,datetime,id_attend));
+                list.add(new MediaDetails(imageLink, videoLink, datetime, id_attend));
             } else {
                 continue;
             }
