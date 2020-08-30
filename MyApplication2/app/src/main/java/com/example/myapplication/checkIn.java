@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -29,6 +30,9 @@ import entity_class.Database;
 public class checkIn extends Fragment {
     Button btn_checkIn;
     TextView message;
+    TextView lastcheckin;
+    ConstraintLayout bgStatus;
+
     final String DATABASE_NAME = "EmployeeDB.sqlite";
     SQLiteDatabase database;
     ArrayList<AttendanceInfo> list;
@@ -94,6 +98,10 @@ public class checkIn extends Fragment {
     private void addControls(View view) {
         message = view.findViewById(R.id.message);
         list = new ArrayList<>();
+
+        bgStatus = (ConstraintLayout) view.findViewById(R.id.bg_status);
+        lastcheckin = (TextView) view.findViewById(R.id.last_checkin);
+
         btn_checkIn = view.findViewById(R.id.btn_checkin);
         btn_checkIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,8 +134,11 @@ public class checkIn extends Fragment {
         // render screen again while finish read data
         //adapterEmployee.notifyDataSetChanged();
         if (list.isEmpty()){
-            message.setText("Ban chua diem danh hom nay");
+
         } else {
+            lastcheckin.setVisibility(View.VISIBLE);
+            bgStatus.setBackgroundResource(R.drawable.bg_status_checkin);
+            //bgStatus.setBackground(R.drawable.bg_status_checkin);
             AttendanceInfo attendanceInfo = list.get(list.size()-1);
             message.setText(attendanceInfo.getDatetime());
         }

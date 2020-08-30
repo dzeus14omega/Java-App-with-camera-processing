@@ -16,6 +16,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import java.io.ByteArrayOutputStream;
@@ -32,21 +33,18 @@ public class UpdateActivity extends AppCompatActivity {
 
     int id = -1 ;
 
-    Button btnSelectPhoto;
-    Button btnTakePhoto;
+    ImageButton btnSelectPhoto;
+    ImageButton btnTakePhoto;
     Button btnSave;
     Button btnCancel;
     EditText editName;
     EditText editPhoneNum;
     ImageView imgAva;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update);
+        setContentView(R.layout.activity_add);
 
         addControls();
         addEvents();
@@ -71,10 +69,10 @@ public class UpdateActivity extends AppCompatActivity {
     }
 
     private void addControls() {
-        btnSelectPhoto = (Button) findViewById(R.id.btnSelectPhoto);
+        btnSelectPhoto = (ImageButton) findViewById(R.id.btnSelectPhoto);
         btnCancel = (Button) findViewById(R.id.btnCancel);
         btnSave = (Button) findViewById(R.id.btnSave);
-        btnTakePhoto = (Button) findViewById(R.id.btn_takePhoto);
+        btnTakePhoto = (ImageButton) findViewById(R.id.btn_takePhoto);
         editName = (EditText) findViewById(R.id.editName);
         editPhoneNum = (EditText) findViewById(R.id.editPhone);
         imgAva = (ImageView) findViewById(R.id.img_avatar);

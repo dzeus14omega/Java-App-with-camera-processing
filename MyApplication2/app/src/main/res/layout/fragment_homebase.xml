@@ -7,17 +7,34 @@
     tools:context=".homebase">
 
     <!-- TODO: Update blank fragment layout -->
-
-    <TextView
-        android:id="@+id/homebase"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/homebase"
-        android:textSize="25sp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/homebase"
+            android:layout_width="261dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_title_head"
+            android:padding="15dp"
+            android:text="Kết quả điểm danh"
+            android:textColor="@color/design_default_color_background"
+            android:textSize="25sp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark"
+            android:foreground="@drawable/bg_piece1">
+
+        </FrameLayout>
+    </LinearLayout>
+
 
     <fragment
         android:id="@+id/fragment2"
@@ -27,7 +44,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homebase" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

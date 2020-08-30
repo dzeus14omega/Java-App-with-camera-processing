@@ -31,6 +31,8 @@ public class CheckInCapture extends AppCompatActivity {
     CameraCustom cameraCustom;
     ImageButton btn_record;
     ImageButton btn_capture;
+    ImageButton btn_back;
+
     private MediaRecorder mediaRecorder;
     private boolean isRecording = false;
     String pathFileVideo;
@@ -84,6 +86,14 @@ public class CheckInCapture extends AppCompatActivity {
         FrameLayout preview = (FrameLayout) findViewById(R.id.frame_capture);
         preview.addView(cameraCustom);
 
+        btn_back = (ImageButton) findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //releaseCamera();
+                finish();
+            }
+        });
         btn_capture = (ImageButton) findViewById(R.id.imageButton);
         btn_capture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +117,9 @@ public class CheckInCapture extends AppCompatActivity {
                     setImageButton(R.drawable.ic_baseline_videocam_24);
                     isRecording = false;
                     insert(pathFileVideo, 2);
+                    btn_capture.setVisibility(View.VISIBLE);
                 } else {
+                    btn_capture.setVisibility(View.INVISIBLE);
                     // initialize video camera
                     if (prepareVideoRecorder()) {
                         // Camera is available and unlocked, MediaRecorder is prepared,
@@ -123,6 +135,7 @@ public class CheckInCapture extends AppCompatActivity {
                         // prepare didn't work, release the camera
                         releaseMediaRecorder();
                         // inform user
+                        btn_capture.setVisibility(View.VISIBLE);
                     }
                 }
             }

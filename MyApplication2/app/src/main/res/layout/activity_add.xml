@@ -33,36 +33,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="144dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:background="@drawable/btn_gradient_bg"
-        android:text="@string/save"
-        android:textColor="@color/cardview_light_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
-        app:layout_constraintStart_toEndOf="@+id/btnCancel"
-        app:layout_constraintTop_toTopOf="@+id/btnCancel" />
-
-    <Button
-        android:id="@+id/btnCancel"
-        android:layout_width="152dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/bg_cancel_btn"
-        android:text="Cancel"
-        android:textColor="@color/cardview_light_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.104"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
-        android:layout_width="392dp"
-        android:layout_height="403dp"
+        android:layout_width="0dp"
+        android:layout_height="293dp"
         android:background="@drawable/bg_toper"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,39 +51,76 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
-                android:id="@+id/btn_takePhoto"
-                android:layout_width="84dp"
-                android:layout_height="match_parent"
-
-                android:background="@drawable/btn_pair_left"
-                android:src="@drawable/ic_baseline_camera_24" />
-
-            <ImageButton
                 android:id="@+id/btnSelectPhoto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_pair_right"
-                android:src="@drawable/ic_baseline_attach_file_24" />
+                android:src="@drawable/ic_baseline_attach_file_24"
+                android:visibility="gone" />
         </LinearLayout>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView3"
-            android:layout_width="222dp"
-            android:layout_height="249dp"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
             app:cardCornerRadius="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.656">
 
             <ImageView
                 android:id="@+id/img_avatar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:srcCompat="@drawable/ava1" />
+
+            <ImageButton
+                android:id="@+id/btn_takePhoto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_baseline_camera_24" />
+
         </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="152dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+            android:text="Cancel"
+            android:textColor="@color/cardview_light_background" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="75dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?android:attr/listDivider" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="144dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_green_dark"
+            android:text="@string/save"
+            android:textColor="@color/cardview_light_background" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
