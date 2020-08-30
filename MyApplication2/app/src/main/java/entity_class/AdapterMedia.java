@@ -33,6 +33,22 @@ public class AdapterMedia extends RecyclerView.Adapter<AdapterMedia.ViewHolder> 
     Activity context;
     ArrayList<MediaDetails> list;
 
+    public Activity getContext() {
+        return context;
+    }
+
+    public void setContext(Activity context) {
+        this.context = context;
+    }
+
+    public ArrayList<MediaDetails> getList() {
+        return list;
+    }
+
+    public void setList(ArrayList<MediaDetails> list) {
+        this.list = list;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView imgCheckin;
         TextView imageName;
@@ -91,6 +107,16 @@ public class AdapterMedia extends RecyclerView.Adapter<AdapterMedia.ViewHolder> 
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void removeItem(int position) {
+        list.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void restoreItem(MediaDetails item, int position) {
+        list.add(position, item);
+        notifyItemInserted(position);
     }
 
     /*@Override

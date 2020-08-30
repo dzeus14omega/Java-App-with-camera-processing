@@ -38,7 +38,7 @@ public class CheckInCapture extends AppCompatActivity {
     Camera.PictureCallback mPictureCallback = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] bytes, Camera camera) {
-            String fileName = System.currentTimeMillis() + ".png";
+            String fileName = System.currentTimeMillis() + ".jpg";
 
             try {
                 // try to store image in internal storage
@@ -46,7 +46,9 @@ public class CheckInCapture extends AppCompatActivity {
                 ByteArrayOutputStream blob = new ByteArrayOutputStream();
 
                 FileOutputStream out = openFileOutput(fileName, MODE_PRIVATE);
-                bitmap.compress(Bitmap.CompressFormat.PNG, 20, out);
+
+                bitmap= Bitmap.createScaledBitmap(bitmap, 300, 400, false);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 40, out);
                 Toast.makeText(getApplicationContext(), "image saved", Toast.LENGTH_SHORT).show();
                 out.flush();
                 out.close();
