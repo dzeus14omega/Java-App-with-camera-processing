@@ -2,6 +2,7 @@ package entity_class;
 
 import android.app.Activity;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.MediaStore;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.MyApp;
 import com.example.myapplication.R;
 
 
@@ -32,6 +34,7 @@ import java.util.ArrayList;
 public class AdapterMedia extends RecyclerView.Adapter<AdapterMedia.ViewHolder> {
     Activity context;
     ArrayList<MediaDetails> list;
+
 
     public Activity getContext() {
         return context;
@@ -110,71 +113,24 @@ public class AdapterMedia extends RecyclerView.Adapter<AdapterMedia.ViewHolder> 
     }
 
     public void removeItem(int position) {
+        MediaDetails item = list.get(position);
+        int id = item.getId_media();
+        SQLiteDatabase db = Database.initDatabase(getContext(), MyApp.DATABASE_NAME);
+        db.execSQL("DELETE FROM DiemDanh where id_attend = ?", new String[]{id+"",});
+
         list.remove(position);
         notifyItemRemoved(position);
     }
 
     public void restoreItem(MediaDetails item, int position) {
         list.add(position, item);
+        int id = item.getId_media();
+        int id_employee = item.getId_employee();
+        String time = item.getDatetime();
+        String image_link = item.getImageLink();
+        SQLiteDatabase db = Database.initDatabase(getContext(), MyApp.DATABASE_NAME);
+        db.execSQL("INSERT INTO DiemDanh (id_attend, id_employee, time, image_link) VALUES (?,?,?,?)", new String[]{id+"", id_employee+"", time, image_link});
         notifyItemInserted(position);
     }
 
-    /*@Override
-    public int getCount() {
-        return list.size();
-    }
-
-    @Override
-    public Object getItem(int i) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return 0;
-    }
-
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row = inflater.inflate(R.layout.list_image_checkin, null);
-        ImageView imgCheckin = row.findViewById(R.id.image_checkin);
-        TextView imageName = row.findViewById(R.id.image_name);
-        TextView datetime = row.findViewById(R.id.datetime);
-        Button btnDelete = row.findViewById(R.id.btn_delete);
-
-        MediaDetails mediaDetails = list.get(i);
-        imageName.setText(mediaDetails.getImageLink());
-        datetime.setText(mediaDetails.getDatetime());
-
-
-        long startime = System.currentTimeMillis();
-        if (mediaDetails.getImageLink() != null){
-            try {
-
-                File f = new File(context.getFilesDir(),mediaDetails.getImageLink());
-                int file_size = Integer.parseInt(String.valueOf(f.length()/1024));
-                Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
-                imgCheckin.setImageBitmap(b);
-                Log.d("imageLoad", file_size + "");
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
-        long endtime = System.currentTimeMillis();
-        Log.d("duration", "getView: " + (endtime-startime));
-
-
-
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-
-        return row;
-    }*/
 }

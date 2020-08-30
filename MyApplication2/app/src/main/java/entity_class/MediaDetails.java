@@ -5,12 +5,22 @@ public class MediaDetails {
     String videoLink;
     String datetime;
     int id_media;
+    int id_employee;
 
-    public MediaDetails(String imageLink, String videoLink, String datetime, int id_media) {
+    public MediaDetails(String imageLink, String videoLink, String datetime, int id_media, int id_employee) {
         this.imageLink = imageLink;
         this.videoLink = videoLink;
         this.datetime = datetime;
         this.id_media = id_media;
+        this.id_employee = id_employee;
+    }
+
+    public int getId_employee() {
+        return id_employee;
+    }
+
+    public void setId_employee(int id_employee) {
+        this.id_employee = id_employee;
     }
 
     public String getImageLink() {

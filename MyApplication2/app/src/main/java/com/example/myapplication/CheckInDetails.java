@@ -76,6 +76,8 @@ public class CheckInDetails extends AppCompatActivity {
         recyclerView.setAdapter(adapterMedia);
 
         readData();
+
+        enableSwipeToDeleteAndUndo();
     }
 
     private void readData(){
@@ -93,7 +95,7 @@ public class CheckInDetails extends AppCompatActivity {
             if(videoLink != null){
 
             } else if(imageLink != null){
-                list.add(new MediaDetails(imageLink, videoLink, datetime, id_attend));
+                list.add(new MediaDetails(imageLink, videoLink, datetime, id_attend, id_employee));
             } else {
                 continue;
             }

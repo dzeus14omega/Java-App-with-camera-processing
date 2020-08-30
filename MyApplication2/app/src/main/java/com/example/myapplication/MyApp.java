@@ -12,7 +12,7 @@ public class MyApp extends Application {
     public static Employee user;
     public static int role;
     public static Context context;
-
+    public static String DATABASE_NAME = "EmployeeDB.sqlite";
     public static int stateFragment = 1;
     public static String pathFile;
 
