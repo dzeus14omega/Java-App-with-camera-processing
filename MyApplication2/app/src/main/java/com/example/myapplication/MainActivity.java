@@ -57,23 +57,6 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
 
-        /*Fragment frg = null;
-        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        switch (MyApp.stateFragment){
-            case 1:
-                frg = getSupportFragmentManager().findFragmentById(R.id.basicfeature);
-                ft.commit();
-            case 2:
-                frg = getSupportFragmentManager().findFragmentById(R.id.basicfeature);
-
-                ft.commit();
-            case 3:
-
-            case 4:
-
-            default:
-
-        }*/
 
     }
 

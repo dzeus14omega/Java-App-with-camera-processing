@@ -10,7 +10,6 @@ import entity_class.Employee;
 
 public class MyApp extends Application {
     public static Employee user;
-    public static int role;
     public static Context context;
     public static String DATABASE_NAME = "EmployeeDB.sqlite";
     public static int stateFragment = 1;
@@ -19,9 +18,7 @@ public class MyApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        user = new Employee();
-        user.setId(1);
-        user.setRole(3);
+        //user = new Employee();
         pathFile = getFilesDir() + "/";
         /*context = getApplicationContext();
         Intent intent = new Intent(context, MainActivity.class);

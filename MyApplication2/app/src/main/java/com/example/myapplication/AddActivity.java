@@ -35,10 +35,9 @@ public class AddActivity extends AppCompatActivity {
     Button btnSave;
     Button btnCancel;
     EditText editName;
+    EditText edtUsername;
     EditText editPhoneNum;
     ImageView imgAva;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +56,7 @@ public class AddActivity extends AppCompatActivity {
         editName = (EditText) findViewById(R.id.editName);
         editPhoneNum = (EditText) findViewById(R.id.editPhone);
         imgAva = (ImageView) findViewById(R.id.img_avatar);
-
+        edtUsername = (EditText) findViewById(R.id.edtUsername);
     }
 
     private void takePicture(){
@@ -107,13 +106,17 @@ public class AddActivity extends AppCompatActivity {
         byte[] anh = getByteArrayFromImageView(imgAva);
         String pass = "1";
         int role = 1;
-
+        String username = edtUsername.getText().toString();
         if (ten.length() == 0){
-            Toast.makeText(this, "Your name is null", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Your name is null!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (username.length() == 0){
+            Toast.makeText(this, "Your username is null!", Toast.LENGTH_SHORT).show();
             return;
         }
         if (sdt.length() == 0){
-            Toast.makeText(this, "Your phone is null", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Your phone is null!", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -123,6 +126,7 @@ public class AddActivity extends AppCompatActivity {
         contentValues.put("Anh", anh);
         contentValues.put("Pass", pass);
         contentValues.put("Role", role);
+        contentValues.put("username", username);
 
         SQLiteDatabase database = Database.initDatabase(this, DATABASE_NAME);
         database.insert("NhanVien",null, contentValues);

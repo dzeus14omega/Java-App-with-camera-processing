@@ -113,7 +113,10 @@ public class AdapterEmployee extends BaseAdapter {
 
     private void delete(int idEmployee) {
         SQLiteDatabase database = Database.initDatabase(context, "EmployeeDB.sqlite");
-        database.delete("NhanVien", "ID = ?", new String[]{idEmployee + ""});
+        //database.delete("NhanVien", "ID = ?", new String[]{idEmployee + ""});
+        database.execSQL("PRAGMA foreign_keys=ON");
+        database.execSQL("DELETE FROM NhanVien WHERE ID = ?", new String[]{idEmployee+"",});
+
         list.clear();
         Cursor cursor = database.rawQuery("SELECT * FROM NhanVien", null);
         while (cursor.moveToNext()){
@@ -121,8 +124,11 @@ public class AdapterEmployee extends BaseAdapter {
             String ten = cursor.getString(1);
             String sdt = cursor.getString(2);
             byte[] anh = cursor.getBlob(3);
+            String pass = cursor.getString(4);
+            int role = cursor.getInt(5);
+            String username = cursor.getString(6);
 
-            list.add(new Employee(id, ten, sdt, anh));
+            list.add(new Employee(id, ten, sdt, anh, pass, role, username));
         }
         notifyDataSetChanged();
     }

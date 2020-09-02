@@ -24,6 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import entity_class.Database;
+import entity_class.Employee;
 
 
 public class UpdateActivity extends AppCompatActivity {
@@ -40,6 +41,7 @@ public class UpdateActivity extends AppCompatActivity {
     EditText editName;
     EditText editPhoneNum;
     ImageView imgAva;
+    EditText editUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,16 +58,18 @@ public class UpdateActivity extends AppCompatActivity {
         Intent intent = getIntent();
         id = intent.getIntExtra("ID", -1);
         SQLiteDatabase database = Database.initDatabase(this, DATABASE_NAME);
-        Cursor cursor = database.rawQuery("SELECT ID, Ten, SDT, Anh FROM NhanVien WHERE id = ?", new String[]{id + "",});
+        Cursor cursor = database.rawQuery("SELECT ID, Ten, SDT, Anh, username FROM NhanVien WHERE id = ?", new String[]{id + "",});
         cursor.moveToFirst();
         String name = cursor.getString(1);
         String phone_num = cursor.getString(2);
         byte[] img = cursor.getBlob(3);
+        String username = cursor.getString(4);
 
         Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
         imgAva.setImageBitmap(bitmap);
         editPhoneNum.setText(phone_num);
         editName.setText(name);
+        editUsername.setText(username);
     }
 
     private void addControls() {
@@ -76,7 +80,7 @@ public class UpdateActivity extends AppCompatActivity {
         editName = (EditText) findViewById(R.id.editName);
         editPhoneNum = (EditText) findViewById(R.id.editPhone);
         imgAva = (ImageView) findViewById(R.id.img_avatar);
-
+        editUsername = (EditText) findViewById(R.id.edtUsername);
     }
 
     private void takePicture(){
@@ -124,16 +128,24 @@ public class UpdateActivity extends AppCompatActivity {
         String ten = editName.getText().toString();
         String sdt = editPhoneNum.getText().toString();
         byte[] anh = getByteArrayFromImageView(imgAva);
+        String username = editUsername.getText().toString();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put("Ten", ten);
         contentValues.put("SDT", sdt);
         contentValues.put("Anh", anh);
+        contentValues.put("username",username);
 
         SQLiteDatabase database = Database.initDatabase(this, "EmployeeDB.sqlite");
         database.update("NhanVien", contentValues, "id = ?", new String[] {id + ""});
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+
+        if(id == MyApp.user.getId()){
+            int role = MyApp.user.getRole();
+            String pass = MyApp.user.getPass();
+            MyApp.user = new Employee(id, ten, sdt, anh, pass,role, username);
+        }
+
+        finish();
 
 
     }

@@ -12,6 +12,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -20,12 +23,16 @@ public class Popup_ComfirmCheckIn extends Activity {
     ImageButton btn_back;
     TextView date;
     TextView time;
+    TextView user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStatusBarGradiant(this);
         setContentView(R.layout.activity_popup__comfirm_check_in);
+
+        user = (TextView) findViewById(R.id.employee_name);
+        user.setText(MyApp.user.getName());
 
         date = (TextView) findViewById(R.id.date);
         time = (TextView) findViewById(R.id.time);

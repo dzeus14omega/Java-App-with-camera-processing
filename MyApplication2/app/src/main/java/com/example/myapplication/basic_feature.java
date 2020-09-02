@@ -119,10 +119,13 @@ public class basic_feature extends Fragment {
         for (int i=0; i < cursor.getCount(); i++){
             cursor.moveToPosition(i);
             int id = cursor.getInt(0);
-            String name = cursor.getString(1);
-            String phone_num = cursor.getString(2);
-            byte[] img_Ava = cursor.getBlob(3);
-            list.add(new Employee(id, name, phone_num, img_Ava));
+            String ten = cursor.getString(1);
+            String sdt = cursor.getString(2);
+            byte[] anh = cursor.getBlob(3);
+            String pass = cursor.getString(4);
+            int role = cursor.getInt(5);
+            String userN = cursor.getString(6);
+            list.add(new Employee(id, ten, sdt, anh, pass, role, userN));
         }
 
         // render screen again while finish read data

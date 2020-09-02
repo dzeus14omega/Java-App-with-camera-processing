@@ -35,16 +35,39 @@
         </FrameLayout>
     </LinearLayout>
 
+    <EditText
+        android:id="@+id/date_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Chon ngay"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:focusable="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-    <fragment
-        android:id="@+id/fragment2"
-        android:name="com.example.myapplication.ResultCheckinFragment"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listResult"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/date_picker"
+        tools:listitem="@layout/list_result_checkin" />
+
+    <ImageButton
+        android:id="@+id/btn_filter"
+        android:layout_width="42dp"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:backgroundTint="@color/design_default_color_secondary_variant"
+        android:src="@drawable/ic_ilter_list"
+        app:layout_constraintBottom_toBottomOf="@+id/date_picker"
+        app:layout_constraintStart_toEndOf="@+id/date_picker"
+        app:layout_constraintTop_toTopOf="@+id/date_picker" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

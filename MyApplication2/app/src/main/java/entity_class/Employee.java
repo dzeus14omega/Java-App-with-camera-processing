@@ -5,19 +5,38 @@ public class Employee {
     private String name;
     private String phone_num;
     private byte[] avatar;
+    private String pass;
     private int role;
+    private String username;
 
-
-    public Employee(int id, String name, String phone_num, byte[] image){
+    public Employee(int id, String name, String phone_num, byte[] avatar, String pass, int role, String username) {
         this.id = id;
         this.name = name;
         this.phone_num = phone_num;
-        this.avatar = image;
+        this.avatar = avatar;
+        this.pass = pass;
+        this.role = role;
+        this.username = username;
     }
 
     public Employee() {
     }
 
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     // GET/SET method
     public byte[] getAvatar() {
