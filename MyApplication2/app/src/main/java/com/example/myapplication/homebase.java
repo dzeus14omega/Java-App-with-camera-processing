@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.app.DatePickerDialog;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,10 +17,18 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import android.widget.ToggleButton;
+
+
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import entity_class.AdapterCheckinResult;
 import entity_class.Database;
@@ -35,9 +44,16 @@ public class homebase extends Fragment {
     final String DATABASE_NAME = "EmployeeDB.sqlite";
     AdapterCheckinResult adapterCheckinResult;
     String querryDB;
+    int total_employee;
+    int absent_employee;
 
     ImageButton btnFilter;
     EditText datePicker;
+    ToggleButton btn_graph;
+
+    PieChart pieChart;
+    String[] status ={"absent", "checked-in"};
+    int[] amount = {};
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,6 +93,10 @@ public class homebase extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        SQLiteDatabase database = Database.initDatabase(getActivity(), DATABASE_NAME);
+        Cursor cursor = database.rawQuery("SELECT ID FROM NhanVien", null);
+        total_employee = cursor.getCount();
     }
 
     @Override
@@ -86,6 +106,25 @@ public class homebase extends Fragment {
         MyApp.stateFragment =1;
         View view = inflater.inflate(R.layout.fragment_homebase, container, false);
 
+        // set up pie chart
+        //pieChart = (AnyChartView) view.findViewById(R.id.chart_statistic);
+        pieChart = (PieChart) view.findViewById(R.id.pie_chart);
+        //pieChart.setOnClickListener();
+
+        //set btn_graph
+        btn_graph = (ToggleButton) view.findViewById(R.id.btn_graph);
+        btn_graph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!btn_graph.isChecked()){
+                    pieChart.setVisibility(View.GONE);
+                } else {
+                    pieChart.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        //setup event date picher
         datePicker = (EditText) view.findViewById(R.id.date_picker);
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -98,6 +137,7 @@ public class homebase extends Fragment {
             }
         });
 
+        //add event on date picker
         btnFilter = (ImageButton) view.findViewById(R.id.btn_filter);
         btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,8 +150,8 @@ public class homebase extends Fragment {
             }
         });
 
+        //setup recycleview
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listResult);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         list = new ArrayList<>();
@@ -141,11 +181,15 @@ public class homebase extends Fragment {
         datePickerDialog.show();
     }
 
+
+
     private void readData(){
         SQLiteDatabase database = Database.initDatabase(getActivity(), DATABASE_NAME);
         Cursor cursor = database.rawQuery(querryDB, null);
         list.clear();
         //Toast.makeText(this.getActivity(), cursor.getCount()+"", Toast.LENGTH_SHORT).show();
+
+        absent_employee = total_employee - cursor.getCount();
 
         for (int i=0 ;i< cursor.getCount();i++){
             cursor.moveToPosition(i);
@@ -158,6 +202,36 @@ public class homebase extends Fragment {
             list.add(new EmployeeCheckinResult(id, datetime, name, videoLink, imageLink, img_Ava));
         }
 
+        setupPieChart();
         adapterCheckinResult.notifyDataSetChanged();
     }
+
+    public void setupPieChart(){
+        ArrayList<PieEntry> employees = new ArrayList<>();
+        employees.add(new PieEntry(absent_employee, "absent"));
+        employees.add(new PieEntry(total_employee - absent_employee, "checked-in"));
+
+        PieDataSet pieDataSet = new PieDataSet(employees, "Statistic");
+        pieDataSet.setColors(getContext().getResources().getIntArray(R.array.colors));
+        pieDataSet.setValueTextColor(Color.WHITE);
+        pieDataSet.setValueTextSize(24f);
+
+        PieData pieData = new PieData(pieDataSet);
+        pieChart.setData(pieData);
+        pieChart.getDescription().setEnabled(false);
+        pieChart.setCenterText("Statistic");
+        pieChart.animateXY(500,500);
+
+
+        /*Pie pie = AnyChart.pie();
+        List<DataEntry> dataEntries = new ArrayList<>();
+        dataEntries.add(new ValueDataEntry(status[0],absent_employee));
+        dataEntries.add(new ValueDataEntry(status[1], total_employee - absent_employee));
+        Toast.makeText(getActivity(), absent_employee + " "+ total_employee, Toast.LENGTH_SHORT).show();
+        pie.data(dataEntries);
+        pieChart.setChart(pie);*/
+    }
+
+
+
 }

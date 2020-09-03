@@ -50,5 +50,5 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'com.android.support:cardview-v7:27.+'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
-
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
