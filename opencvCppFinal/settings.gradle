@@ -1,0 +1,4 @@
+include ':app'
+rootProject.name = "opencvCppFinal"
+include ':opencv'
+project(':opencv').projectDir = new File(opencvsdk + '/sdk')
