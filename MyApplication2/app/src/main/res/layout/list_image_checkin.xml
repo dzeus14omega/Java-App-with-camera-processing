@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:rotation="90"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompat="@drawable/ava1" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
