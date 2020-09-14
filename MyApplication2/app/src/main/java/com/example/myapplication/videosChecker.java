@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,6 +63,15 @@ public class videosChecker extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_videos_checker, container, false);
 
+        VideoView videoView = (VideoView) view.findViewById(R.id.videoView);
+
+        String videoPath = getActivity().getFilesDir() + "/" + "1599107443270.mp4";
+        Uri uri = Uri.parse(videoPath);
+        videoView.setVideoURI(uri);
+
+        MediaController mediaController = new MediaController(getContext());
+        videoView.setMediaController(mediaController);
+        mediaController.setAnchorView(videoView);
 
         return view;
     }
